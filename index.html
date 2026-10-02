@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="以 93 道題目探索你的四個人格偏好維度，並了解相應的認知功能組合。"
+    />
+    <meta name="theme-color" content="#10203a" />
+    <title>人格取向測驗</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2310203a'/%3E%3Cpath d='M17 18h30v8H36v24h-8V26H17z' fill='%23ffbd66'/%3E%3Ccircle cx='47' cy='45' r='7' fill='%2369d6c4'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要內容</a>
+
+    <header class="site-header" aria-label="網站標題">
+      <div class="header-inner">
+        <a class="brand" href="#" data-action="home" aria-label="返回開始頁">
+          <span class="brand-mark" aria-hidden="true">T<span>•</span></span>
+          <span>人格取向測驗</span>
+        </a>
+        <div class="header-actions">
+          <span class="user-email hidden" id="userEmail"></span>
+          <button class="quiet-button hidden" id="saveExitButton" type="button">儲存並離開</button>
+          <button class="quiet-button" id="loginButton" type="button">登入</button>
+          <button class="quiet-button hidden" id="logoutButton" type="button">登出</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="screen intro-screen" id="introScreen" aria-labelledby="introTitle">
+        <div class="intro-copy">
+          <p class="eyebrow">PERSONALITY PREFERENCE TEST</p>
+          <h1 id="introTitle">你慣常用哪種方式<br />理解世界？</h1>
+          <p class="intro-lede">
+            93 道二選一題目，從四個偏好維度整理你的思考、互動及行動模式。
+          </p>
+
+          <div class="intro-actions">
+            <button class="primary-button" id="startButton" type="button">開始測驗</button>
+            <button class="secondary-button hidden" id="resumeButton" type="button">繼續上次進度</button>
+          </div>
+
+          <dl class="test-facts" aria-label="測驗資料">
+            <div><dt>93</dt><dd>題目</dd></div>
+            <div><dt>12–18</dt><dd>分鐘</dd></div>
+            <div><dt>16</dt><dd>結果類型</dd></div>
+          </dl>
+        </div>
+
+        <aside class="intro-visual" aria-label="四個人格偏好維度">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="type-grid" aria-hidden="true">
+            <span>E</span><span>I</span><span>S</span><span>N</span>
+            <span>T</span><span>F</span><span>J</span><span>P</span>
+          </div>
+          <p class="visual-note">沒有標準答案，選擇最貼近你平日狀態的一項。</p>
+        </aside>
+      </section>
+
+      <section class="screen auth-screen hidden" id="authScreen" aria-labelledby="authTitle">
+        <div class="auth-layout">
+          <div class="auth-context">
+            <p class="eyebrow">SECURE YOUR PROGRESS</p>
+            <h1>保存你嘅探索進度。</h1>
+            <p>登入後，答題進度同測驗結果會安全保存，轉用另一部裝置亦可以繼續。</p>
+            <ul>
+              <li>只需 Email 同 Password</li>
+              <li>每位用戶只可查看自己資料</li>
+              <li>隨時登出，瀏覽器唔會保存密碼</li>
+            </ul>
+          </div>
+
+          <div class="auth-card">
+            <p class="eyebrow" id="authModeLabel">WELCOME BACK</p>
+            <h2 id="authTitle">登入</h2>
+            <p class="auth-subtitle" id="authSubtitle">登入後開始或繼續你嘅測驗。</p>
+
+            <form id="authForm" novalidate>
+              <label class="field-label" for="emailInput">Email</label>
+              <input class="text-input" id="emailInput" name="email" type="email" autocomplete="email" required />
+
+              <label class="field-label" for="passwordInput">Password</label>
+              <input
+                class="text-input"
+                id="passwordInput"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                minlength="8"
+                required
+              />
+
+              <p class="form-message hidden" id="authMessage" role="status"></p>
+              <button class="primary-button auth-submit" id="authSubmitButton" type="submit">登入</button>
+            </form>
+
+            <button class="auth-toggle" id="authToggleButton" type="button">未有帳戶？建立帳戶</button>
+            <button class="auth-back" id="authBackButton" type="button">返回測驗介紹</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen test-screen hidden" id="testScreen" aria-labelledby="sectionTitle">
+        <div class="test-shell">
+          <aside class="progress-panel">
+            <div class="progress-sticky">
+              <p class="eyebrow" id="sectionLabel">第一部分</p>
+              <h2 id="sectionTitle">日常情境</h2>
+              <p id="sectionDescription">選擇最貼近你一般感受或行為的一項。</p>
+
+              <div class="progress-summary" aria-live="polite">
+                <span id="progressText">第 1–10 題</span>
+                <strong id="progressPercent">0%</strong>
+              </div>
+              <div class="progress-track" aria-hidden="true">
+                <span id="progressBar"></span>
+              </div>
+              <p class="answered-count"><span id="answeredCount">0</span> / 93 已回答</p>
+            </div>
+          </aside>
+
+          <div class="question-area">
+            <div id="questionList"></div>
+            <div class="validation-message hidden" id="validationMessage" role="alert">
+              請先回答本頁所有題目。
+            </div>
+            <nav class="page-actions" aria-label="測驗頁面控制">
+              <button class="secondary-button" id="backButton" type="button">上一頁</button>
+              <button class="primary-button" id="nextButton" type="button">下一頁</button>
+            </nav>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen result-screen hidden" id="resultScreen" aria-labelledby="resultTitle">
+        <div class="result-hero">
+          <div class="result-type-wrap">
+            <span class="result-kicker">你的人格取向</span>
+            <strong class="result-type" id="resultType">INTJ</strong>
+          </div>
+          <div class="result-intro">
+            <p class="eyebrow">YOUR RESULT</p>
+            <h1 id="resultTitle">你的思考模式，有一套獨特節奏。</h1>
+            <p id="resultOverview"></p>
+          </div>
+        </div>
+
+        <section class="result-section" aria-labelledby="dimensionsTitle">
+          <div class="section-heading">
+            <p class="eyebrow">PREFERENCE MAP</p>
+            <h2 id="dimensionsTitle">四個偏好維度</h2>
+          </div>
+          <div class="dimension-grid" id="dimensionGrid"></div>
+        </section>
+
+        <section class="result-section function-section" aria-labelledby="functionsTitle">
+          <div class="section-heading">
+            <p class="eyebrow">COGNITIVE FUNCTIONS</p>
+            <h2 id="functionsTitle">認知功能組合</h2>
+            <p>以下次序反映你較自然依賴的心理功能，以至較需要刻意發展的部分。</p>
+          </div>
+          <div class="function-grid" id="functionGrid"></div>
+        </section>
+
+        <div class="result-footer-actions">
+          <button class="primary-button" id="restartButton" type="button">重新測驗</button>
+          <p>結果只供自我探索，並非心理評估或診斷。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>人格取向測驗 · 登入後以加密連線保存測驗資料</p>
+    </footer>
+
+    <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+    <script src="config.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
