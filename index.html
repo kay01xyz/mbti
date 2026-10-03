@@ -23,11 +23,15 @@
       <div class="header-inner">
         <a class="brand" href="#" data-action="home" aria-label="返回開始頁">
           <span class="brand-mark" aria-hidden="true">M</span>
-          <span>MBTI 16型人格測驗</span>
+          <span class="brand-title brand-title-full">MBTI 16型人格測驗</span>
+          <span class="brand-title brand-title-mobile" aria-hidden="true">MBTI 測驗</span>
         </a>
         <div class="header-actions">
           <span class="user-email hidden" id="userEmail"></span>
-          <button class="quiet-button hidden" id="saveExitButton" type="button">儲存並離開</button>
+          <button class="quiet-button hidden" id="saveExitButton" type="button">
+            <span class="save-label-full">儲存並離開</span>
+            <span class="save-label-compact" aria-hidden="true">儲存</span>
+          </button>
           <button class="quiet-button hidden" id="logoutButton" type="button">登出</button>
         </div>
       </div>
@@ -91,7 +95,6 @@
               </div>
               <div class="latest-result-actions">
                 <button class="primary-button" id="viewLatestResultButton" type="button">查看結果</button>
-                <button class="text-button" id="viewHistoryButton" type="button">查看全部紀錄</button>
               </div>
             </section>
 
@@ -103,19 +106,6 @@
             </div>
           </div>
         </aside>
-      </section>
-
-      <section class="screen history-screen hidden" id="historyScreen" aria-labelledby="historyTitle">
-        <div class="history-heading">
-          <div>
-            <p class="eyebrow">測驗紀錄</p>
-            <h1 id="historyTitle">過往結果</h1>
-            <p>按完成時間由新至舊排列。</p>
-          </div>
-          <button class="secondary-button" id="historyBackButton" type="button">返回首頁</button>
-        </div>
-        <div class="history-list" id="historyList"></div>
-        <p class="history-empty hidden" id="historyEmpty">尚未有已完成的測驗結果。</p>
       </section>
 
       <section class="screen test-screen hidden" id="testScreen" aria-labelledby="sectionTitle">
