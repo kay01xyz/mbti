@@ -1,0 +1,20 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    # 這裡的 Cron 設定為每週一和週四的凌晨 0:00 (UTC 時間) 自動執行
+    # 這樣每 3-4 天就會戳一次資料庫，完美避開 7 天暫停限制
+    - cron: '0 0 * * 1,4'
+  workflow_dispatch: # 允許你隨時在 GitHub 網頁上手動觸發測試
+
+jobs:
+  ping_supabase:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Supabase Database Table
+        run: |
+          # 請將下面的 your_table_name 更改為你實際存在的資料表名稱（例如 todos）
+          curl -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/your_table_name?select=*" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
