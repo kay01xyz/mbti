@@ -15,6 +15,6 @@ jobs:
       - name: Ping Supabase Database Table
         run: |
           # 請將下面的 your_table_name 更改為你實際存在的資料表名稱（例如 todos）
-          curl -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/your_table_name?select=*" \
+          curl -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/assessment_progress?select=*" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
